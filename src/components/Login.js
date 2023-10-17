@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./Header";
 
 const Login = () => {
+  const [isSignIn, setIsSignIn] = useState(true);
+
+  const toggleSignInForm = () => {
+    setIsSignIn(!isSignIn);
+  };
+
   return (
     <div>
       <Header />
@@ -12,24 +18,45 @@ const Login = () => {
           alt="logo"
         />
       </div>
-      <form className="bg-black absolute px-16 py-14 my-28 mx-auto left-0 right-0 w-[31%] rounded-md bg-opacity-[87%] h-[75%]">
-        <h1 className="text-white text-3xl font-medium my-4">Sign In</h1>
+      <form className="bg-black absolute px-16 py-14 my-28 mx-auto left-0 right-0 w-[31%] rounded-md bg-opacity-[87%] h-[78%]">
+        <h1 className="text-white text-3xl font-medium my-4">
+          {isSignIn ? "Sign In" : "Sign Up"}
+        </h1>
+
+        {!isSignIn && (
+          <input
+            type="text"
+            placeholder="Full Name"
+            className="w-full p-4 my-4 bg-[#333333] rounded-[6px] bg-opacity-100"
+          />
+        )}
+
         <input
           type="text"
           placeholder="Email"
-          className="w-full p-4 my-3.5 bg-[#333333] rounded-[6px] bg-opacity-100"
+          className={`${
+            !isSignIn ? "" : "my-4"
+          } w-full p-4 bg-[#333333] rounded-[6px] bg-opacity-100`}
         />
+
         <input
           type="password"
           placeholder="Password"
-          className="w-full rounded-[6px] p-4 bg-[#333333] "
+          //template literals are used for classes based on conditions
+          className={`${
+            !isSignIn ? "my-4" : ""
+          } w-full rounded-[6px] p-4 bg-[#333333]`}
         />
         <button className="bg-[#E50815]  w-full p-4 my-10 text-white rounded-[6px]">
-          Sign In
+          {isSignIn ? "Sign In" : "Sign Up"}
         </button>
         <div className="flex space-x-2">
-          <p className="text-[#989298]">New to Netflix?</p>
-          <button className="text-white"> Sign up now.</button>
+          <p className="text-[#989298]">
+            {isSignIn ? "New to Netflix?" : "Already registered?"}
+          </p>
+          <p onClick={toggleSignInForm} className="text-white">
+            {isSignIn ? "Sign Up." : "Sign In Now."}
+          </p>
         </div>
       </form>
     </div>
