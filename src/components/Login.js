@@ -1,8 +1,18 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Header from "./Header";
+import { checkValidData } from "../utils/validate";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
+  const [validMessage, setValidMessage] = useState();
+  const emailValue = useRef(null);
+  const passwordValue = useRef(null);
+
+  const handleButtonClick = () => {
+    setValidMessage(
+      checkValidData(emailValue.current.value, passwordValue.current.value)
+    );
+  };
 
   const toggleSignInForm = () => {
     setIsSignIn(!isSignIn);
@@ -18,7 +28,13 @@ const Login = () => {
           alt="logo"
         />
       </div>
-      <form className="bg-black absolute px-16 py-14 my-28 mx-auto left-0 right-0 w-[31%] rounded-md bg-opacity-[87%] h-[78%]">
+      <form
+        className="bg-black absolute px-16 py-14 my-28 mx-auto left-0 right-0 w-[31%] rounded-md bg-opacity-[87%] h-[78%]"
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+        //it stopping from form submit , which is automatic
+      >
         <h1 className="text-white text-3xl font-medium my-4">
           {isSignIn ? "Sign In" : "Sign Up"}
         </h1>
@@ -32,6 +48,7 @@ const Login = () => {
         )}
 
         <input
+          ref={emailValue}
           type="text"
           placeholder="Email"
           className={`${
@@ -40,6 +57,7 @@ const Login = () => {
         />
 
         <input
+          ref={passwordValue}
           type="password"
           placeholder="Password"
           //template literals are used for classes based on conditions
@@ -47,7 +65,11 @@ const Login = () => {
             !isSignIn ? "my-4" : ""
           } w-full rounded-[6px] p-4 bg-[#333333]`}
         />
-        <button className="bg-[#E50815]  w-full p-4 my-10 text-white rounded-[6px]">
+        <p className="text-[#cc2525]">{validMessage}</p>
+        <button
+          className="bg-[#E50815]  w-full p-4 my-10 text-white rounded-[6px]"
+          onClick={handleButtonClick}
+        >
           {isSignIn ? "Sign In" : "Sign Up"}
         </button>
         <div className="flex space-x-2">

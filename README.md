@@ -3,8 +3,10 @@
 - Getting Started with Create React App
 - Configured TailwindCss
 - Header
-- Login Form
+- Login Form (Must use Formik for large forms !!!)
 - Sign up Form
+- Form Validation
+- useRef hook
 
 # Features
 
@@ -31,4 +33,5 @@
 In the project directory, you can run:
 
 ### `npm start` -->
+
 # Netflix_GPT
